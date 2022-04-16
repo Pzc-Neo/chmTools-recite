@@ -1,0 +1,692 @@
+:root {
+    --main_color: #212c38;
+    --main_bg_color: #f1f4f9;
+    --main_bg_color_2: #ffffffcc;
+    --main_color_3: #37393c;
+    --main_bg_color_3: #EEF1F9;
+    --main_bg_color_4: #4a9df8;
+    --main_color_5: #ffffff;
+    --main_bg_color_5: #4a95e6;
+    --main_border_color: #e6e8ef;
+    --main_border_color_2: #dfe1e6;
+    --main_btn_color: #f5fbff;
+    --main_btn_bg_color: #4A9DF8;
+    --main_btn_bg_color_hover: #56a6fc;
+}
+
+[v-cloak]{
+    display: none;
+}
+.chmST_main {
+    font-size: 14px;
+}
+
+.chmCL_main {
+    color: var(--main_color);
+    background: var(--main_bg_color);
+}
+
+.chmCL_green {
+    background: #b6e4c2;
+}
+
+.chmST_top_bar {
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 7px;
+    display: flex;
+    text-align: center;
+    -webkit-app-region: drag;
+
+    color: var(--main_color_3);
+    background: var(--main_bg_color_3);
+    /* border-bottom: 1px solid var(--main_border_color); */
+}
+
+.chmCL_hidden_text {
+    color: var(--main_bg_color);
+    border-bottom: 1px solid var(--main_color);
+}
+
+.chmCL_top_bar {
+    color: var(--main_color_5);
+    background: var(--main_bg_color_5);
+}
+
+.chmST_top_bar .left {
+    flex: 1;
+    text-align: left;
+}
+
+.chmST_top_bar .center {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chmST_top_bar .right {
+    flex: 1;
+    user-select: none;
+    text-align: right;
+}
+
+.chmST_top_bar .right div {
+    -webkit-app-region: no-drag;
+}
+
+.chmST_top_bar .system_btn img {
+    width: 16px;
+    height: 16px;
+    padding: 7px;
+}
+
+
+.chmST_middle_bar {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+}
+
+.chmST_bottom_bar {
+    height: 25px;
+    line-height: 25px;
+    padding: 0px 7px;
+    display: flex;
+    text-align: center;
+}
+
+.chmST_bottom_bar .left {
+    flex: 1;
+    text-align: left;
+}
+
+.chmST_bottom_bar .center {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chmST_bottom_bar .right {
+    flex: 1;
+    user-select: none;
+    text-align: right;
+}
+
+.chmCL_bottom_bar {
+    /* color: var(--main_color_5);
+    background: var(--main_bg_color_5); */
+    color: #2a4461;
+    background: #d8e7f7;
+}
+
+/* 设置滚动条样式 */
+::-webkit-scrollbar {
+    width: 5px;
+    /*对垂直流动条有效*/
+    height: 3px;
+    /*对水平流动条有效*/
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    /*滚动条的圆角*/
+    border-radius: 10px;
+    /*滚动条的背景颜色*/
+    background-color: var(--main_bg_color_1);
+}
+
+.subject_area,
+.group_area,
+.file_area,
+.content_area {
+    height: 100%;
+}
+
+.subject_area {
+    width: 70px;
+    overflow: auto;
+    float: left;
+    color: var(--main_color_3);
+    background: var(--main_bg_color_3);
+    border-right: 1px solid var(--main_border_color);
+    border-top: 1px solid #4181c3;
+}
+
+.group_area {
+    width: 150px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    background: var(--main_bg_color_2);
+    border-right: 1px solid var(--main_border_color);
+}
+
+.file_area {
+    width: 200px;
+    /* background-color: #F1F4FB; */
+    display: flex;
+    flex-direction: column;
+    /* float: left; */
+    border-right: 1px solid var(--main_border_color);
+}
+
+.content_area {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+}
+
+.chmST_input_box {
+    height: 80%;
+    min-width: 20px;
+    outline-style: none;
+    margin-right: 2px;
+}
+
+.chmCL_input_box {
+    border: 1px solid var(--main_border_color_2);
+}
+
+.tool_bar {
+    /* position: fixed; */
+    padding: 5px;
+    /* overflow-y:auto; */
+}
+
+.content {
+    /* height: 535px; */
+    text-align: justify;
+    border-top: 1px solid var(--main_border_color);
+    padding: 10px;
+    padding-bottom: 25px;
+    overflow-y: auto;
+    outline-style: none;
+    word-break: break-all;
+
+}
+
+
+/* 按钮样式 - start */
+
+/* 按钮样式1-start */
+.style_btn_1 {
+    display: inline-block;
+    /* height: 28px; */
+    padding: 4px 8px;
+    margin-bottom: 3px;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 15px;
+    /* line-height: 15px; */
+    user-select: none;
+    width: fit-content;
+    outline-style: none;
+}
+
+
+/* 顶栏 按钮 */
+.default_btn {
+    color: #fbfff9;
+    background-color: #4A9DF8;
+    box-shadow: 2px 2px 4px #4A9DF8a1;
+}
+
+.default_btn:hover {
+    background-color: #56a6fc;
+}
+
+.default_btn:active {
+    background-color: #4592e4;
+}
+
+
+/* 顶栏按钮 */
+.font_btn {
+    color: var(--main_btn_color);
+    background: var(--main_btn_bg_color);
+    /* box-shadow: 2px 2px 4px #23c94ca1; */
+}
+
+.font_btn:hover {
+    background: var(--main_btn_bg_color_hover);
+}
+
+/* .font_btn:active {
+    background-color: #17aa77;
+} */
+
+
+
+.backup_btn {
+    color: #fbfff9;
+    background-color: #e65454;
+    box-shadow: 2px 2px 4px #c2424294;
+}
+
+.backup_btn:hover {
+    background-color: #ec5b5b;
+}
+
+.backup_btn:active {
+    background-color: #d84c4c;
+}
+
+/* 按钮样式 - end */
+/* 按钮样式 - end */
+
+
+
+/* 科目列表样式 --start */
+.subject_list_class {
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.subject_ul {
+    /* padding: 8px;
+    padding-top: 0px;
+    overflow: hidden;
+    overflow-y: auto;
+    margin: 0px; */
+}
+
+.subject_info_label {
+    height: 22px;
+    padding: 5px;
+    padding-top: 11px;
+    padding-bottom: 6px;
+    cursor: default;
+}
+
+.subject_info_label:hover {
+    color: var(--main_bg_color_1);
+    /* background-color: #4A9DF8; */
+}
+
+.current_seleted_subject {
+    /* color:#2f85e0; */
+    /* background-color: #f3f6fd; */
+    color: var(--main_color_5);
+    background-color: var(--main_bg_color_5);
+    /* border-left: 3px solid #4A9DF8; */
+    transition: all 0.1s ease-in-out;
+}
+
+.subject_li_style {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    left: -8px
+}
+
+/* 左侧 - start*/
+.subject_info_label_leftside {
+    float: left;
+}
+
+.subject_title {
+    margin-bottom: 5px;
+    /* width: 50px; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 1;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+.subject_description {
+    font-size: 12px;
+    color: #7c8096;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 3;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+/* 左侧 - end*/
+/* 右侧 - start*/
+.subject_info_label_rightside {
+    float: right;
+}
+
+.subject_info_label_chapter_count {
+    color: #fff;
+    background-color: #4A9DF8;
+    border-radius: 5px;
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: relative;
+    top: 0px;
+    right: 0px;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* 右侧 - end*/
+
+/* 科目列表样式 - end */
+
+
+
+
+
+/* 分组列表样式 --start */
+.group_list_class {
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.group_ul {
+    /* padding: 8px; */
+    padding-top: 0px;
+    overflow: hidden;
+    overflow-y: auto;
+    margin: 0px;
+}
+
+.group_info_label {
+    /* color: #223f69; */
+    width: 142px;
+    height: 18px;
+    padding: 3px;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--main_border_color);
+    cursor: default;
+}
+
+.group_info_label:hover {
+    color: var(--main_bg_color_1);
+    /* background-color: #4A9DF8; */
+}
+
+.current_seleted_group {
+    /* color:#2f85e0; */
+    /* background-color: #f3f6fd; */
+    background-color: #f3f6fdb0;
+    border-left: 3px solid var(--main_bg_color_5);
+    transition: all 0.1s ease-in-out;
+}
+
+.group_li_style {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    left: -8px
+}
+
+/* 左侧 - start*/
+.group_info_label_leftside {
+    float: left;
+}
+
+.group_title {
+    margin-bottom: 5px;
+    width: 145px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 1;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+.group_description {
+    font-size: 12px;
+    color: #7c8096;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 3;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+/* 左侧 - end*/
+/* 右侧 - start*/
+.group_info_label_rightside {
+    float: right;
+}
+
+.group_info_label_chapter_count {
+    color: #fff;
+    background-color: #4A9DF8;
+    border-radius: 5px;
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: relative;
+    top: 0px;
+    right: 0px;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* 右侧 - end*/
+
+/* 分组列表样式 - end */
+
+
+/* 文件列表样式 - start */
+.file_list_class {
+    overflow-y: auto;
+}
+
+.file_ul {
+    /* padding: 8px;
+    padding-top: 0px; */
+    margin: 3px;
+    overflow-y: auto;
+
+}
+
+.file_info_label {
+    /* width: 175px; */
+    height: 38px;
+    padding: 5px 7px;
+    padding-top: 8px;
+    border: 1px solid var(--main_border_color);
+    border-radius: 4px;
+    background: var(--main_bg_color_2);
+    margin: 0px;
+    /* border-bottom: 1px solid #e8ebfa; */
+    cursor: default;
+    box-shadow: 2px 2px 4px #dadada4f;
+}
+
+.file_info_label:hover {
+    /* color:#4A9DF8; */
+    color: var(--main_bg_color_1);
+    /* background-color: #fafcff; */
+    /* background-color: #fafafa; */
+}
+
+.current_seleted_file {
+    border-left: 3px solid var(--main_bg_color_5);
+    transition: all 0.1s ease-in-out;
+}
+
+.file_li_style {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    left: -8px;
+}
+
+/* 左侧 - start*/
+.file_info_label_leftside {
+    float: left;
+}
+
+.file_title {
+    margin-bottom: 5px;
+    width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 1;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+.file_description {
+    font-size: 12px;
+    color: #7c8096;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* 限制在一个块元素显示的文本的行数 */
+    -webkit-line-clamp: 3;
+    /* 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* 内容自动换行 */
+    word-break: break-all;
+}
+
+/* 左侧 - end*/
+/* 右侧 - start*/
+.file_info_label_rightside {
+    float: right;
+}
+
+.file_info_label_chapter_count {
+    color: #fff;
+    background-color: #4A9DF8;
+    border-radius: 5px;
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: relative;
+    top: 0px;
+    right: 0px;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* 右侧 - end*/
+
+/* 文件列表样式 --end */
+
+/* 通知消息 */
+.class_notification_panel {
+    position: absolute;
+    z-index: 1000;
+    bottom: 30px;
+    left: 2%;
+    padding: 15px;
+    border-radius: 15px;
+    color: rgb(255, 255, 255);
+    background-color: #007ACCb5;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+
+
+
+/* 下拉菜单 - start */
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.menu_content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.menu_content div {
+    color: black;
+    /* padding: 12px 16px; */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    user-select: none;
+}
+
+.menu_content div:hover {
+    background-color: #f1f1f1
+}
+
+.menu:hover .menu_content {
+    display: block;
+}
+
+.menu:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+/* 下拉菜单 - end */
+.current_seleted_template {
+    /* color: #fbfff9; */
+    background-color: #1b89ff;
+    /* color: red; */
+}
+
+
+/* 顶栏按钮 */
+.all_file_btn {
+    color: var(--main_color_5);
+    background-color: var(--main_bg_color_5);
+}
+
+.all_file_btn:hover {
+    /* color: rgb(255, 255, 255);
+    background-color: #27c48d; */
+    color: var(--main_color_5);
+    background-color: var(--main_bg_color_5);
+}
+
+.chmST_contextmenu {
+    position: fixed;
+    padding: 10px 4px;
+    border-radius: 5px;
+}
+
+
+.chmST_contextmenu .menu_item {
+    padding: 4px 11px;
+    border-radius: 5px;
+}
+
+.chmCL_contextmenu {
+    color: var(--main_color);
+    background: var(--main_bg_color);
+    border: 1px solid var(--main_color_3);
+    user-select: none;
+}
+
+.chmCL_contextmenu .menu_item:hover {
+    color: var(--main_bg_color);
+    background: var(--main_btn_bg_color);
+}

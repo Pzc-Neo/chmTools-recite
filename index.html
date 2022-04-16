@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>残文背诵</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="app" class="chmST_main chmCL_main" @click="hide_contextmenu" v-cloak>
+        <!-- 通知面板 - start -->
+        <div id="notification_panel" class="class_notification_panel" :style="style_notification" v-html="notification">
+        </div>
+        <!-- 通知面板 - end -->
+
+        <div style="height:100vh;display: flex;flex-direction: column;">
+            <div class="chmST_top_bar chmCL_top_bar">
+                <div class="left">残文背诵{{ " v" + tool_config.version}}</div>
+                <div class="center app_name">{{database_name}}</div>
+                <div class="right system_btn">
+                    <div style="display: inline-block;">
+                        <div v-if="win_always_on_top" class="can_mark"
+                            @click="app_command('win_always_on_top','[取消置顶] 窗口')">
+                            <img src="./image/other_icon/always_on_top_true.svg">
+                        </div>
+                        <div v-else="win_always_on_top" class="can_mark"
+                            @click="app_command('win_always_on_top','[置顶] 窗口')">
+                            <img src="./image/other_icon/always_on_top_false.svg">
+                        </div>
+                    </div>
+                    <!-- <div style="display: inline-block;" class="can_mark">
+                        <img src="./image/other_icon/setting.svg">
+                    </div> -->
+                    <div style="display: inline-block;" class="can_mark" @click="app_command('win_minimize')">
+                        <img src="./image/other_icon/minimize.svg">
+                    </div>
+                    <div style="display: inline-block;" class="can_mark" @click="app_command('win_maximize')">
+                        <img src="./image/other_icon/maximize.svg">
+                    </div>
+                    <div style="display: inline-block;" class="can_mark" @click="app_command('win_close')">
+                        <img class="quick" src="./image/other_icon/quick.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="chmST_middle_bar chmCL_middle_bar">
+                <!-- 科目列表 -->
+                <div class="subject_area">
+                    <!-- 科目列表项 -->
+                    <div class="subject_ul">
+                        <div v-for="(subject,index) in current_subject_list" @drop="drop(event)" draggable="true"
+                            @dragstart="drag(event)" @dragover="allowDrop(event)" :title="subject.id"
+                            :subject_id="subject.id" draggable="true" :index="index" drap_type="subject"
+                            drop_type="subject">
+                            <div class="subject_info_label can_mark"
+                                :class="{current_seleted_subject:subject.id==current_subject_id}"
+                                @click='change_subject(subject.id,subject.title,index)'
+                                @contextmenu.prevent="show_contextmenu($event,'subject',subject)" :index="index"
+                                drap_type="subject" drop_type="subject">
+                                <!-- 左侧 -->
+                                <div class='subject_info_label_leftside' :index="index" drap_type="subject"
+                                    drop_type="subject">
+                                    <div class="subject_title" :title="subject.title+subject.update_date"
+                                        :subject_id="subject.id" @dblclick="rename($event,subject.id,'subjects',index)"
+                                        :index="index" drap_type="subject" drop_type="subject">
+                                        {{subject.title}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分组列表 -->
+                <div class="group_area">
+                    <div class="group_ul">
+                        <div
+                            style="display: flex; font-size: 13px; position: relative; height: 28px;padding: 0px 4px; padding-top: 5px;">
+                            <input v-model="group_search_text" @keyup.enter="search_group()" placeholder="搜索分组.."
+                                class="chmST_input_box chmCL_input_box">
+                            <input type="button" value="+" class="style_btn_1 font_btn" @click="new_group()">
+                        </div>
+
+                        <!-- <div style="padding-top:5px; font-size: 13px;position: relative;left: -5px;">
+                            <input v-model="group_search_text" @keyup.enter="search_group()" placeholder="搜索分组.."
+                                style="width:104%;height: 23px;outline-style: none;border: 1px solid rgba(87, 184, 119, 0.61);">
+                        </div> -->
+                        <div class=" group_info_label" style="font-weight:bold;position: relative;"
+                            @click="show_all_file()" :class="{all_file_btn:current_group_id=='所有文件'}">所有文件</div>
+                        <div class=" group_info_label"
+                            style="font-weight:bold;position: relative;border-bottom: 1px solid var(--main_border_color_2)"
+                            @click="show_today_file()" :class="{all_file_btn:current_group_id=='今日份复习'}"
+                            title="包含超时的文章。">
+                            今日份复习</div>
+                    </div>
+                    <!-- 分组列表项 -->
+                    <div class="group_ul" :style="style_group_ul" style="flex: 1;">
+                        <div v-for="(group,index) in current_group_list" @drop="drop(event)" draggable="true"
+                            @dragstart="drag(event)" @dragover="allowDrop(event)" :title="group.id" :group_id="group.id"
+                            draggable="true" :index="index" drap_type="group" drop_type="group">
+                            <div class="group_info_label can_mark"
+                                :class="{current_seleted_group:group.id==current_group_id}"
+                                @click='change_group(group.id,group.title,index)'
+                                @contextmenu.prevent="show_contextmenu($event,'group',group)" :group_id="group.id"
+                                :index="index" drap_type="group" drop_type="group">
+                                <!-- 左侧 -->
+                                <div class='group_info_label_leftside' :group_id="group.id" :index="index"
+                                    drap_type="group" drop_type="group">
+                                    <div class="group_title" :title="group.title+group.update_date" :group_id="group.id"
+                                        @dblclick="rename($event,group.id,'groups',index)" :index="index"
+                                        drap_type="group" drop_type="group">
+                                        {{group.title}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 文件列表 -->
+                <div class="file_area" :style="style_file_area">
+                    <div
+                        style="display: flex; font-size: 13px; position: relative; height: 28px; padding: 0px 6px; padding-top: 5px;">
+                        <input v-model="file_search_text" @keyup.enter="search_file()" placeholder="搜索文件.."
+                            class="chmST_input_box chmCL_input_box">
+                        <input type="button" value="+" class="style_btn_1 font_btn" @click="new_file()">
+                    </div>
+                    <!-- 文件列表项 -->
+                    <div class="file_ul" style="flex: 1;">
+                        <div v-for="(file,index) in current_file_list" @drop="drop(event)" draggable="true"
+                            @dragstart="drag(event)" @dragover="allowDrop(event)" :file_id="file.id"
+                            class="file_info_label can_mark" :class="{current_seleted_file:file.id==current_file_id}"
+                            @click='change_file(file.id,file.title,index)'
+                            @contextmenu.prevent="show_contextmenu($event,'file',file)" :index="index" drap_type="file"
+                            drop_type="file">
+                            <!-- 左侧 -->
+                            <div class='file_info_label_leftside' :index="index" drap_type="file" drop_type="file">
+                                <div class="file_title" :title="file.title+'-'+file.create_date"
+                                    @dblclick="rename($event,file.id,'files',index)" :index="index" :index="index"
+                                    drap_type="file" drop_type="file">
+                                    {{file.title}}
+                                </div>
+                                <div class="file_description" :title="'reference_date:'+file.reference_date"
+                                    :index="index" drap_type="file" drop_type="file">
+                                    {{file.update_date}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 内容面板 -->
+                <div class="content_area">
+                    <!-- 按钮面板 -->
+                    <div class="tool_bar" style="height: 55px;">
+                        <!-- 文件 -->
+                        <div class="menu">
+                            <!-- <input type="button" class="style_btn_1 backup_btn" value="备份" @click="backup_database()"> -->
+                            <button class="style_btn_1 backup_btn">文件▽</button>
+                            <div class="menu_content">
+                                <!-- <div>
+                                <input type="button" class="style_btn_1 backup_btn" value="备份"
+                                    @click="backup_database()">
+                                <input type="button" class="style_btn_1 backup_btn" value="获取备份列表"
+                                    @click="get_backup_database()">
+                                    <div v-for="database in backup_database_list">{{database}}</div>
+                            </div> -->
+                                <!-- <div></div> -->
+                                <div @click="new_database()">新建文件</div>
+                                <div @click="open_database()">打开文件</div>
+                                <div @click="open_database('default')">打开默认</div>
+                                <div @click="reset_file_sort_num()">重构文件排序索引</div>
+                                <div @click="reset_group_sort_num()">重构分组排序索引</div>
+                                <div @click="reset_subject_sort_num()">重构科目排序索引</div>
+                                <!-- <div @click="backup_database()">备份</div> -->
+                                <!-- <div @click="switch_language_mode('英文模式')">英文模式</div>
+                            <div @click="switch_language_mode('日文模式')">日文模式</div> -->
+                            </div>
+                        </div>
+
+                        <!-- 语言模式 -->
+                        <div class="menu">
+                            <button class="style_btn_1 default_btn">{{ language_mode }}▽</button>
+                            <div class="menu_content">
+                                <div @click="switch_language_mode('中文模式')">中文模式</div>
+                                <div @click="switch_language_mode('英文模式')">英文模式</div>
+                                <div @click="switch_language_mode('日文模式')">日文模式</div>
+                            </div>
+                        </div>
+
+                        <!-- 残文模板 -->
+                        <div class="menu">
+                            <button class="style_btn_1 default_btn">{{ current_template_name }}▽</button>
+                            <div class="menu_content">
+                                <div @click="handle_text('source')">源文本</div>
+                                <div @click="handle_text('T1')">模板一</div>
+                                <div @click="handle_text('T2')">模板二</div>
+                                <div @click="handle_text('T3')">模板三</div>
+                                <div @click="handle_text('T4')">模板四</div>
+                            </div>
+                        </div>
+
+                        <!-- 复习阶段 -->
+                        <div class="menu">
+                            <button class="style_btn_1 font_btn">阶段{{ current_file.review_stage }}▽</button>
+                            <div class="menu_content">
+                                <!-- <div v-for="review_stage in review_stage_list" @click="change_review_stage()">{{review_stage}}: {{review_stage_list[review_stage]}}</div> -->
+                                <div v-for="(days,review_stage) in review_stage_list"
+                                    @click="change_review_stage(review_stage)">
+                                    阶段 {{review_stage}} ({{days}}天)</div>
+                            </div>
+                        </div>
+                        <input type="button" class="style_btn_1 font_btn" :value="add_to_review_project_btn_value"
+                            @click="toggle_is_add_to_review_project($event)">
+
+                        <!-- 调节字体 -->
+                        <div class="menu">
+                            <button class="style_btn_1 default_btn">调节字体▽</button>
+                            <div class="menu_content">
+                                <div @click="change_font_size('default')">默认字号</div>
+                                <div @click="change_font_size('-')">字号-</div>
+                                <div @click="change_font_size('+')">字号+</div>
+                                <div @click="change_line_height('default')">默认行高</div>
+                                <div @click="change_line_height('-')">行高-</div>
+                                <div @click="change_line_height('+')">行高+</div>
+                                <div @click="toggle_content_style('fontWeight')">粗体</div>
+                            </div>
+                        </div>
+
+                        <div class="menu">
+                            <button class="style_btn_1 default_btn">文件操作▽</button>
+                            <div class="menu_content">
+                                <div @click="new_subject()">新建科目</div>
+                                <div @click="new_group()">新建分组</div>
+                                <div @click="new_file()">新建文件</div>
+                                <div @click="delete_current_subject()">删除科目</div>
+                                <div @click="delete_current_group()">删除分组</div>
+                                <div @click="delete_current_file()">删除文件</div>
+                                <div @click="subject_to_top()">科目置顶</div>
+                                <div @click="group_to_top()">组置顶</div>
+                                <div @click="file_to_top()">文件置顶</div>
+                            </div>
+                        </div>
+
+                        <input type="button" class="style_btn_1 font_btn" :value="green_mode_btn_value"
+                            @click="toggle_green_mode()">
+
+                        <input type="button" class="style_btn_1 font_btn" value="快捷键" @click="show_shortcutkey()">
+
+                        <input type="button" class="style_btn_1 backup_btn" value="正则" @click="show_regExp()">
+                        <div :hidden="is_hidden_regExp" style="position: relative;padding: 8px; background: #dae4ef;">
+                            <input type="text" style="width: 150px;height: 23px; outline-style: none;"
+                                class="chmST_input_box chmCL_input_box" v-model="regExp_source_text"
+                                placeholder="正则表达式">
+                            <input type="text" style="width: 150px;height: 23px; outline-style: none;"
+                                class="chmST_input_box chmCL_input_box" v-model="regExp_replace_text"
+                                placeholder="替换内容">
+                            <input type="button" class="style_btn_1 default_btn" value="替换" @click="excute_regExp()">
+                            <br />
+                            <input type="button" class="style_btn_1 default_btn" value="删pdf换行"
+                                @click="excute_regExp('pdf_line_break')">
+                            <input type="button" class="style_btn_1 default_btn" value="删[*]"
+                                @click="excute_regExp('square_brackets')">
+                            <input type="button" class="style_btn_1 default_btn" value="删(*)"
+                                @click="excute_regExp('round_brackets')">
+                            <input type="button" class="style_btn_1 default_btn" value="加换行"
+                                @click="excute_regExp('line_break')">
+                        </div>
+
+                    </div>
+
+                    <!-- 显示/编辑要背诵的内容 -->
+                    <div class="content" :style="style_content" style="flex: 1;" v-html="final_content"
+                        :contenteditable="is_contenteditable" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+            <div class="chmST_bottom_bar chmCL_bottom_bar">
+                <div class="left">
+                    <span>切换模板的快捷键：`1234</span>
+                </div>
+                <div class="center">
+                    <span>{{ current_file_name }}【{{ word_count }}字】</span>
+                </div>
+                <div class="right">
+                    <span>{{ remaining_days }} </span>
+                </div>
+            </div>
+            <!-- 右键菜单-start -->
+            <div id="tool_contextmenu" :style="style_contextmenu" class="chmST_contextmenu chmCL_contextmenu">
+                <div v-show="contextmenu_param.type ==='subject'" class="menu">
+                    <div class="menu_item" onclick="ct.group.new()">新建</div>
+                    <div class="menu_item" onclick="ct.group.delete()">删除</div>
+                    <div class="menu_item" onclick="ct.group.rename()">重命名</div>
+                </div>
+                <div v-show="contextmenu_param.type ==='group'" class="menu">
+                    <div class="menu_item" @click="">详细信息</div>
+                    <div class="menu_item" onclick="ct.tool.menu_command.open_folder()">打开文件夹</div>
+                </div>
+                <div v-show="contextmenu_param.type ==='file'" class="menu">
+                    <div class="menu_item" onclick="ct.tool.menu_command.show_tool_info()">详细信息</div>
+                    <div class="menu_item" onclick="ct.tool.menu_command.open_folder()">打开文件夹</div>
+                </div>
+            </div>
+            <!-- 右键菜单-end -->
+        </div>
+    </div>
+    <script src="js/vue@2.6.12.js"></script>
+    <script src="js/render.js"></script>
+</body>
+
+</html>

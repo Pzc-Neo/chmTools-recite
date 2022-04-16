@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 15 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-1.01688,-2.52243)">
+        <g id="置顶">
+            <g transform="matrix(0.169153,7.87542e-16,0,1.1485,13.4381,-3.05203)">
+                <rect x="2.601" y="6.541" width="6.881" height="6.164" style="fill:white;"/>
+            </g>
+            <g transform="matrix(0.169153,7.87542e-16,0,1.1485,8.49114,-3.05203)">
+                <rect x="2.601" y="6.541" width="6.881" height="6.164" style="fill:white;"/>
+            </g>
+            <g transform="matrix(0.169153,1.21878e-15,0,1.7774,7.55996,-9.10391)">
+                <rect x="2.601" y="6.541" width="6.881" height="6.164" style="fill:white;"/>
+            </g>
+            <g transform="matrix(-1.20994e-15,0.144437,-1.7774,1.08834e-16,23.5984,7.12729)">
+                <rect x="2.601" y="6.541" width="6.881" height="6.164" style="fill:white;"/>
+            </g>
+            <g transform="matrix(0.718898,0,0,0.664735,7.64299,1.60325)">
+                <rect x="2.601" y="6.541" width="6.881" height="6.164" style="fill:white;"/>
+            </g>
+        </g>
+    </g>
+</svg>
